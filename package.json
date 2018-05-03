@@ -1,0 +1,87 @@
+{
+  "name": "@udia/graphql-postgres-subscriptions",
+  "version": "1.0.0",
+  "description": "A graphql-subscriptions PubSub engine using Postgresql",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "NODE_ENV=test jest --verbose --forceExit",
+    "posttest": "yarn lint",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "prepublishOnly": "yarn test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/udia-software/graphql-postgres-subscriptions.git"
+  },
+  "keywords": [
+    "graphql",
+    "postgres",
+    "postgresql",
+    "redis",
+    "apollo",
+    "subscriptions"
+  ],
+  "author": {
+    "name": "Alexander Wong",
+    "email": "alex@udia.ca",
+    "url": "https://udia.ca"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__tests__/testHelper.ts"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/src/**/*.ts"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text",
+      "html"
+    ]
+  },
+  "homepage": "https://github.com/udia-software/graphql-postgres-subscriptions#readme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/udia-software/graphql-postgres-subscriptions/issues"
+  },
+  "dependencies": {
+    "graphql-subscriptions": "^0.5.8",
+    "iterall": "^1.2.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.3",
+    "@types/pg": "^7.4.8",
+    "coveralls": "^3.0.1",
+    "graphql": "^0.13.2",
+    "jest": "^22.4.3",
+    "pg": "^7.4.1",
+    "ts-jest": "^22.4.4",
+    "tslint": "^5.9.1",
+    "tslint-config-prettier": "^1.12.0",
+    "typescript": "^2.8.3"
+  },
+  "peerDependencies": {
+    "graphql": "^0.13.2",
+    "pg": "^7.4.1"
+  },
+  "optionalDependencies": {
+    "pg-native": "^2.2.0"
+  }
+}
