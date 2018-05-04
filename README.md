@@ -1,8 +1,9 @@
 # Graphql Postgres Subscriptions
 
-[![Build Status](https://travis-ci.org/udia-software/graphql-postgres-subscriptions.svg?branch=master)](https://travis-ci.org/udia-software/graphql-postgres-subscriptions)
-[![codecov](https://codecov.io/gh/udia-software/graphql-postgres-subscriptions/branch/master/graph/badge.svg)](https://codecov.io/gh/udia-software/graphql-postgres-subscriptions)
-[![dependencies Status](https://david-dm.org/udia-software/graphql-postgres-subscriptions/status.svg)](https://david-dm.org/udia-software/graphql-postgres-subscriptions)
+
+[![Travis](https://shields.alexander-wong.com/travis/udia-software/graphql-postgres-subscriptions.svg?style=flat-square)](https://travis-ci.org/udia-software/graphql-postgres-subscriptions)
+[![Codecov](https://shields.alexander-wong.com/codecov/c/github/udia-software/graphql-postgres-subscriptions.svg?style=flat-square)](https://codecov.io/gh/udia-software/graphql-postgres-subscriptions)
+[![David](https://shields.alexander-wong.com/david/udia-software/graphql-postgres-subscriptions.svg?style=flat-square)](https://david-dm.org/udia-software/graphql-postgres-subscriptions)
 
 GraphQL PubSubEngine implementation using Postgres `NOTIFY`, `LISTEN`, and `UNLISTEN`.
 
