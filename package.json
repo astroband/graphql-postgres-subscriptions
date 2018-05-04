@@ -83,5 +83,6 @@
   },
   "optionalDependencies": {
     "pg-native": "^2.2.0"
-  }
+  },
+  "typings": "dist/index.d.ts"
 }
