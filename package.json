@@ -68,7 +68,6 @@
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/pg": "^7.4.8",
-    "coveralls": "^3.0.1",
     "graphql": "^0.13.2",
     "jest": "^22.4.3",
     "pg": "^7.4.1",
