@@ -1,5 +1,7 @@
 # Graphql Postgres Subscriptions
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/udia-software/graphql-postgres-subscriptions.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/udia-software/graphql-postgres-subscriptions.svg?branch=master)](https://travis-ci.org/udia-software/graphql-postgres-subscriptions)
 [![Coverage Status](https://coveralls.io/repos/github/udia-software/graphql-postgres-subscriptions/badge.svg?branch=master)](https://coveralls.io/github/udia-software/graphql-postgres-subscriptions?branch=master)
 [![dependencies Status](https://david-dm.org/udia-software/graphql-postgres-subscriptions/status.svg)](https://david-dm.org/udia-software/graphql-postgres-subscriptions)
