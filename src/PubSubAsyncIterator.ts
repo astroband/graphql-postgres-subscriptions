@@ -40,7 +40,7 @@ export default class PubSubAsyncIterator<T> implements AsyncIterator<any> {
 
   private async pushValue(event: any) {
     await this.allSubscribed;
-    if (this.pullQueue.length !== 0) {
+    if (this.pullQueue.length > 0) {
       this.pullQueue.shift()!({ value: event, done: false });
     } else {
       this.pullQueue.push(event);
@@ -49,7 +49,7 @@ export default class PubSubAsyncIterator<T> implements AsyncIterator<any> {
 
   private pullValue(): Promise<IteratorResult<any>> {
     return new Promise(resolve => {
-      if (this.pushQueue.length !== 0) {
+      if (this.pushQueue.length > 0) {
         resolve({ value: this.pushQueue.shift(), done: false });
       } else {
         this.pullQueue.push(resolve);
