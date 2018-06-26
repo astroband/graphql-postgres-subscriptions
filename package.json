@@ -4,7 +4,7 @@
   "description": "A graphql-subscriptions PubSub engine using Postgresql",
   "main": "dist/index.js",
   "scripts": {
-    "test": "NODE_ENV=test jest --verbose --forceExit",
+    "test": "NODE_ENV=test jest --verbose --forceExit --detectOpenHandles",
     "posttest": "yarn lint",
     "build": "tsc",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
@@ -66,10 +66,10 @@
     "iterall": "^1.2.2"
   },
   "devDependencies": {
-    "@types/jest": "^22.2.3",
+    "@types/jest": "^23.1.2",
     "@types/pg": "^7.4.8",
     "graphql": "^0.13.2",
-    "jest": "^22.4.3",
+    "jest": "^23.2.0",
     "pg": "^7.4.1",
     "ts-jest": "^22.4.4",
     "tslint": "^5.9.1",

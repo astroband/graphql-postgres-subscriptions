@@ -48,6 +48,10 @@ export default class PostgresIPC extends EventEmitter {
         this.emit(msg.channel, msg.payload);
       }
     });
+    this.pgClient.on("end", () => {
+      this.ending = true;
+      return this.end();
+    });
   }
 
   /**
@@ -60,13 +64,15 @@ export default class PostgresIPC extends EventEmitter {
     const statement =
       `NOTIFY ${this.pgClient.escapeIdentifier(channel)}` +
       `, ${this.pgClient.escapeLiteral(encodedPayload)}`;
-    this.pgClient.query(statement, (err, res) => {
-      if (err) {
-        this.emit("error", err);
-      } else {
-        this.emit("notify", channel, payload);
-      }
-    });
+    if (!this.ending) {
+      this.pgClient.query(statement, (err, res) => {
+        if (err) {
+          this.emit("error", err);
+        } else {
+          this.emit("notify", channel, payload);
+        }
+      });
+    }
   }
 
   /**
@@ -81,32 +87,36 @@ export default class PostgresIPC extends EventEmitter {
   }
 
   private _dispatchListen(channel: string) {
-    this.pgClient.query(
-      `LISTEN ${this.pgClient.escapeIdentifier(channel)}`,
-      err => {
-        if (err) {
-          this.emit("error", err);
-        } else {
-          this.emit("listen", channel);
+    if (!this.ending) {
+      this.pgClient.query(
+        `LISTEN ${this.pgClient.escapeIdentifier(channel)}`,
+        err => {
+          if (err) {
+            this.emit("error", err);
+          } else {
+            this.emit("listen", channel);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   private _dispatchUnlisten(channel: string) {
-    this.pgClient.query(
-      `UNLISTEN ${this.pgClient.escapeIdentifier(channel)}`,
-      err => {
-        if (err) {
-          this.emit("error", err);
-        } else {
-          this.emit("unlisten", channel);
+    if (!this.ending) {
+      this.pgClient.query(
+        `UNLISTEN ${this.pgClient.escapeIdentifier(channel)}`,
+        err => {
+          if (err) {
+            this.emit("error", err);
+          } else {
+            this.emit("unlisten", channel);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
-  private _endCallback(err: any) {
+  private _endCallback(err: Error) {
     if (err) {
       this.ending = false;
       this.emit("error", err);
