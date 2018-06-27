@@ -1,6 +1,6 @@
 {
   "name": "@udia/graphql-postgres-subscriptions",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A graphql-subscriptions PubSub engine using Postgresql",
   "main": "dist/index.js",
   "scripts": {
