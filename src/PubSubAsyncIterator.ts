@@ -41,7 +41,10 @@ export default class PubSubAsyncIterator<T> implements AsyncIterator<any> {
   private async pushValue(event: any) {
     await this.allSubscribed;
     if (this.pullQueue.length > 0) {
-      this.pullQueue.shift()!({ value: event, done: false });
+      const fn = this.pullQueue.shift();
+      if (fn) {
+        fn({ value: event, done: false });
+      }
     } else {
       this.pullQueue.push(event);
     }
