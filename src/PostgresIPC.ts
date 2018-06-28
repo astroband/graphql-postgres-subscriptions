@@ -15,7 +15,10 @@ export default class PostgresIPC extends EventEmitter {
   private pgClient: Client;
   private ending: boolean = false;
 
-  constructor(client: Client, reviver?: any) {
+  constructor(
+    client: Client,
+    reviver?: ((key: string, value: any) => any)
+  ) {
     super();
     this.pgClient = client;
 
@@ -27,7 +30,6 @@ export default class PostgresIPC extends EventEmitter {
         this._dispatchListen(channel);
       }
     });
-
     this.on("removeListener", (channel: string) => {
       if (
         RESERVED_CHANNELS.indexOf(channel) < 0 &&
@@ -42,7 +44,7 @@ export default class PostgresIPC extends EventEmitter {
         msg.payload = msg.payload
           ? JSON.parse(msg.payload, reviver)
           : msg.payload;
-      } catch (err) {
+      } catch {
         // JSON may not always parse. This is OK.
       } finally {
         this.emit(msg.channel, msg.payload);

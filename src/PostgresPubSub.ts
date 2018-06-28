@@ -5,8 +5,10 @@ import PubSubAsyncIterator from "./PubSubAsyncIterator";
 
 export default class PostgresPubSub implements PubSubEngine {
   public eventEmitter: PostgresIPC;
-  private subscriptions: any;
-  private subIdCounter: any;
+  private subscriptions: {
+    [index: number]: [string, (payload: any) => void];
+  };
+  private subIdCounter: number;
 
   constructor(pgClient: Client, reviver?: any) {
     this.eventEmitter = new PostgresIPC(pgClient, reviver);
@@ -33,7 +35,7 @@ export default class PostgresPubSub implements PubSubEngine {
     this.eventEmitter.removeListener(triggerName, onMessage);
   }
 
-  public asyncIterator<T>(triggers: string | string[]): AsyncIterator<any> {
+  public asyncIterator<T>(triggers: string | string[]): AsyncIterator<T> {
     return new PubSubAsyncIterator(this, triggers);
   }
 }
