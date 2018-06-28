@@ -67,13 +67,17 @@ export default class PostgresIPC extends EventEmitter {
       `NOTIFY ${this.pgClient.escapeIdentifier(channel)}` +
       `, ${this.pgClient.escapeLiteral(encodedPayload)}`;
     if (!this.ending) {
-      this.pgClient.query(statement, (err, res) => {
-        if (err) {
-          this.emit("error", err);
-        } else {
-          this.emit("notify", channel, payload);
-        }
-      });
+      try {
+        this.pgClient.query(statement, (err, res) => {
+          if (err) {
+            this.emit("error", err);
+          } else {
+            this.emit("notify", channel, payload);
+          }
+        });  
+      } catch (err) {
+        this.emit("error", err);
+      }
     }
   }
 
@@ -85,36 +89,48 @@ export default class PostgresIPC extends EventEmitter {
       return;
     }
     this.ending = true;
-    this.pgClient.query(`UNLISTEN *`, this._endCallback);
+    try {
+      this.pgClient.query(`UNLISTEN *`, this._endCallback);
+    } catch (err) {
+      this.emit("error", err);
+    }
   }
 
   private _dispatchListen(channel: string) {
     if (!this.ending) {
-      this.pgClient.query(
-        `LISTEN ${this.pgClient.escapeIdentifier(channel)}`,
-        err => {
-          if (err) {
-            this.emit("error", err);
-          } else {
-            this.emit("listen", channel);
+      try {
+        this.pgClient.query(
+          `LISTEN ${this.pgClient.escapeIdentifier(channel)}`,
+          err => {
+            if (err) {
+              this.emit("error", err);
+            } else {
+              this.emit("listen", channel);
+            }
           }
-        }
-      );
+        );  
+      } catch (err) {
+        this.emit("error", err);
+      }
     }
   }
 
   private _dispatchUnlisten(channel: string) {
     if (!this.ending) {
-      this.pgClient.query(
-        `UNLISTEN ${this.pgClient.escapeIdentifier(channel)}`,
-        err => {
-          if (err) {
-            this.emit("error", err);
-          } else {
-            this.emit("unlisten", channel);
+      try {
+        this.pgClient.query(
+          `UNLISTEN ${this.pgClient.escapeIdentifier(channel)}`,
+          err => {
+            if (err) {
+              this.emit("error", err);
+            } else {
+              this.emit("unlisten", channel);
+            }
           }
-        }
-      );
+        );  
+      } catch (err) {
+        this.emit("error", err);
+      }
     }
   }
 
