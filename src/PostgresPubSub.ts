@@ -16,9 +16,8 @@ export default class PostgresPubSub implements PubSubEngine {
     this.subIdCounter = 0;
   }
 
-  public publish(triggerName: string, payload: any) {
-    this.eventEmitter.notify(triggerName, payload);
-    return true;
+  public async publish(triggerName: string, payload: any) {
+    return this.eventEmitter.notify(triggerName, payload);
   }
 
   public subscribe(triggerName: string, onMessage: (...args: any[]) => void) {
@@ -35,7 +34,7 @@ export default class PostgresPubSub implements PubSubEngine {
     this.eventEmitter.removeListener(triggerName, onMessage);
   }
 
-  public asyncIterator<T>(triggers: string | string[]): AsyncIterator<T> {
+  public asyncIterator<T>(triggers: string | string[]): PubSubAsyncIterator<T> {
     return new PubSubAsyncIterator(this, triggers);
   }
 }

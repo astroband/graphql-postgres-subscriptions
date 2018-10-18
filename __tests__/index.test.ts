@@ -40,9 +40,10 @@ describe("Index", () => {
           done();
         })
         .then(() => {
-          expect(pgPubSub.publish(eventName, { foo: "bar", baz: 1 })).toBe(
-            true
-          );
+          return pgPubSub.publish(eventName, { foo: "bar", baz: 1 });
+        })
+        .then(publishValue => {
+          expect(publishValue).toBeUndefined();
         });
     });
 
@@ -52,19 +53,22 @@ describe("Index", () => {
       const pgPubSub = new PostgresPubSub(pgClient);
       await pgPubSub
         .subscribe(eventName, payload => {
-          expect(payload).toBeUndefined();
+          expect(payload).toBeUndefined(); // test that this is never called
         })
         .then(subId => {
           pgPubSub.unsubscribe(subId);
-          expect(pgPubSub.publish(eventName, { foo: 1 })).toBe(true);
+          return pgPubSub.publish(eventName, { foo: 1 });
         })
-        .then(done);
+        .then(publishValue => {
+          expect(publishValue).toBeUndefined();
+          done();
+        });
     });
   });
 
   describe("PostgresIPC", () => {
     it("should allow custom JSON reviver", async done => {
-      expect.assertions(2);
+      expect.assertions(1);
       const dateReviver = (key: any, value: any) => {
         const isISO8601Z = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*)?)Z$/;
         if (typeof value === "string" && isISO8601Z.test(value)) {
@@ -85,13 +89,11 @@ describe("Index", () => {
           expect(payload).toEqual({ goodDate, badDate });
           done();
         })
-        .then(() => {
-          expect(pgPubSub.publish(eventName, { goodDate, badDate })).toBe(true);
-        });
+        .then(() => pgPubSub.publish(eventName, { goodDate, badDate }));
     });
 
     it("should handle reviver exceptions", async done => {
-      expect.assertions(2);
+      expect.assertions(1);
       const eventName = "testBadReviver";
       const pgPubSub = new PostgresPubSub(pgClient, (key: any, value: any) => {
         throw new Error();
@@ -101,13 +103,11 @@ describe("Index", () => {
           expect(payload).toEqual('{"reviver":"Test"}'); // stringified JSON
           done();
         })
-        .then(() => {
-          expect(pgPubSub.publish(eventName, { reviver: "Test" })).toBe(true);
-        });
+        .then(() => pgPubSub.publish(eventName, { reviver: "Test" }));
     });
 
     it("should allow null payload", async done => {
-      expect.assertions(2);
+      expect.assertions(1);
       const eventName = "testNullPayload";
       const pgPubSub = new PostgresPubSub(pgClient);
       await pgPubSub
@@ -115,9 +115,7 @@ describe("Index", () => {
           expect(payload).toEqual(null);
           done();
         })
-        .then(() => {
-          expect(pgPubSub.publish(eventName, null)).toBe(true);
-        });
+        .then(() => pgPubSub.publish(eventName, null));
     });
   });
 
