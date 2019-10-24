@@ -1,6 +1,5 @@
 # Graphql Postgres Subscriptions
-
-[![Travis](https://shields.alexander-wong.com/travis/udia-software/graphql-postgres-subscriptions.svg?style=flat-square)](https://travis-ci.org/udia-software/graphql-postgres-subscriptions)
+[![Build Status](https://img.shields.io/travis/com/astroband/graphql-postgres-subscriptions/master.svg)](https://travis-ci.com/astroband/graphql-postgres-subscriptions)
 [![Codecov](https://shields.alexander-wong.com/codecov/c/github/udia-software/graphql-postgres-subscriptions.svg?style=flat-square)](https://codecov.io/gh/udia-software/graphql-postgres-subscriptions)
 [![David](https://shields.alexander-wong.com/david/udia-software/graphql-postgres-subscriptions.svg?style=flat-square)](https://david-dm.org/udia-software/graphql-postgres-subscriptions)
 
