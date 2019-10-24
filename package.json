@@ -1,5 +1,5 @@
 {
-  "name": "@udia/graphql-postgres-subscriptions",
+  "name": "graphql-postgres-subscriptions",
   "version": "1.1.0",
   "description": "A graphql-subscriptions PubSub engine using Postgresql",
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/udia-software/graphql-postgres-subscriptions.git"
+    "url": "https://github.com/astroband/graphql-postgres-subscriptions.git"
   },
   "keywords": [
     "graphql",
@@ -56,10 +56,10 @@
       "html"
     ]
   },
-  "homepage": "https://github.com/udia-software/graphql-postgres-subscriptions#readme",
+  "homepage": "https://github.com/astroband/graphql-postgres-subscriptions#readme",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/udia-software/graphql-postgres-subscriptions/issues"
+    "url": "https://github.com/astroband/graphql-postgres-subscriptions/issues"
   },
   "dependencies": {
     "graphql-subscriptions": "^1.0.0",
@@ -79,9 +79,6 @@
   "peerDependencies": {
     "graphql": "^0.13.2",
     "pg": "^7.4.1"
-  },
-  "optionalDependencies": {
-    "pg-native": "^3.0.0"
   },
   "typings": "dist/index.d.ts",
   "files": [
