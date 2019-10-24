@@ -1,6 +1,6 @@
 {
   "name": "@astroband/graphql-postgres-subscriptions",
-  "version": "1.1.0",
+  "version": "1.0.10",
   "description": "A graphql-subscriptions PubSub engine using Postgresql",
   "main": "dist/index.js",
   "scripts": {
@@ -27,6 +27,9 @@
     "email": "alex@udia.ca",
     "url": "https://udia.ca"
   },
+  "contributors": [
+    "Timur Ramazanov <charlie.vmk@gmail.com>"
+  ],
   "jest": {
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
